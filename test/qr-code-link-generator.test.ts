@@ -16,11 +16,12 @@ describe("QRCodeLinkGenerator", function () {
                 firstName: "User",
                 lastName: "Test",
             });
+            await registration.providePaymentInformation(user.id, {qrId: "some_qr_id", memberId: "some_member_id"})
             const sut = new QRCodeLinkGenerator(userStorage);
 
             const result = await sut.generateQRCodeLink(user.id);
 
-            assert.strictEqual(result, `https://some-host/${user.id}`);
+            assert.strictEqual(result, `http://ec2-3-249-21-214.eu-west-1.compute.amazonaws.com/payment.html?userId=${user.id}`);
         });
     });
 });
