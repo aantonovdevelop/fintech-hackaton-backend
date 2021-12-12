@@ -19,23 +19,43 @@ const paymentLinkGenerator = new PaymentLinkGenerator(userStorage);
 const qrCodeLinkGenerator = new QRCodeLinkGenerator(userStorage);
 
 application.post("/registration", async (req, res) => {
-    return res.send(await registration.registration(req.body));
+    try {
+        return res.send(await registration.registration(req.body));
+    } catch (err) {
+        return res.status(500).send(err);
+    }
 });
 
 application.post("/sign-in", async (req, res) => {
-    return res.send(await registration.signIn(req.body.email, req.body.password));
+    try {
+        return res.send(await registration.signIn(req.body.email, req.body.password));
+    } catch (err) {
+        return res.status(500).send(err);
+    }
 });
 
 application.post("/payment-info/:userId", async (req, res) => {
-    return res.send(await registration.providePaymentInformation(req.params.userId, req.body));
+    try {
+        return res.send(await registration.providePaymentInformation(req.params.userId, req.body));
+    } catch (err) {
+        return res.status(500).send(err);
+    }
 });
 
 application.get("/payment-link/:userId/:sum", async (req, res) => {
-    return res.send(await paymentLinkGenerator.generatePaymentLink(req.params.userId, req.params.sum));
+    try {
+        return res.send(await paymentLinkGenerator.generatePaymentLink(req.params.userId, req.params.sum));
+    } catch (err) {
+        return res.status(500).send(err);
+    }
 });
 
 application.get("/qr-code-link/:userId", async (req, res) => {
-    return res.send(await qrCodeLinkGenerator.generateQRCodeLink(req.params.userId));
+    try {
+        return res.send(await qrCodeLinkGenerator.generateQRCodeLink(req.params.userId));
+    } catch (err) {
+        return res.status(500).send(err);
+    }
 });
 
 application.listen(3000, () => console.log(`Server started..`));
