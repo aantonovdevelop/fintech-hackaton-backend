@@ -46,6 +46,8 @@ application.get("/payment-link/:userId/:sum", async (req, res) => {
     try {
         return res.send(await paymentLinkGenerator.generatePaymentLink(req.params.userId, req.params.sum));
     } catch (err) {
+        console.error(JSON.stringify(err));
+
         return res.status(500).send(err);
     }
 });
@@ -54,6 +56,8 @@ application.get("/qr-code-link/:userId", async (req, res) => {
     try {
         return res.send(await qrCodeLinkGenerator.generateQRCodeLink(req.params.userId));
     } catch (err) {
+        console.error(JSON.stringify(err));
+
         return res.status(500).send(err);
     }
 });
