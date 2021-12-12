@@ -1,5 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
+import cors from "cors";
 import {InMemoryUserStorage} from "../../external/storages/user-storage/in-memory";
 import {InMemoryPaymentInformationStorage} from "../../external/storages/payment-information-storage/in-memory";
 import {Registration} from "../../src/registration";
@@ -8,6 +9,7 @@ import {QRCodeLinkGenerator} from "../../src/qr-code/qr-code-link-generator";
 
 const application = express();
 
+application.use(cors({origin: "*"}));
 application.use(bodyParser.json());
 
 const userStorage = new InMemoryUserStorage()
