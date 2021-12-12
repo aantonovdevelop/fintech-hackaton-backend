@@ -44,6 +44,8 @@ application.post("/payment-info/:userId", async (req, res) => {
 
 application.get("/payment-link/:userId/:sum", async (req, res) => {
     try {
+        console.log(req.params.userId, req.params.sum);
+
         return res.send(await paymentLinkGenerator.generatePaymentLink(req.params.userId, req.params.sum));
     } catch (err) {
         console.error(JSON.stringify(err));
